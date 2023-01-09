@@ -1,10 +1,4 @@
-import { createContext, useContext, useState } from "react";
-
-type DataContext = {
-
-}
-
-const DataContext = createContext({});
+import { createContext, useContext, useState, useCallback } from "react";
 
 export type TimerPerMonth = {
   monthOfTimer: {
@@ -15,6 +9,13 @@ export type TimerPerMonth = {
   timer: string;
 }
 
+type DataContextProps = {
+  listTimerPerMonth: TimerPerMonth[];
+  addTimerTrack: (value: TimerPerMonth) => void;
+};
+
+const DataContext = createContext({} as DataContextProps);
+
 type DataProviderProps = {
   children: JSX.Element | JSX.Element;
 }
@@ -22,9 +23,15 @@ type DataProviderProps = {
 export function DataProvider({ children }: DataProviderProps) {
   const [listTimerPerMonth, setListTimerPerMonth] = useState([] as TimerPerMonth[]);
   
+  const addTimerTrack = useCallback((value: TimerPerMonth) => {
+    setListTimerPerMonth([...listTimerPerMonth, value]);
+  }, [listTimerPerMonth])
 
   return (
-    <DataContext.Provider value={{}}>
+    <DataContext.Provider value={{
+      listTimerPerMonth,
+      addTimerTrack
+    }}>
       {children}
     </DataContext.Provider>
   )
