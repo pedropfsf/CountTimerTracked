@@ -8,21 +8,28 @@ import ContainerScreen from '../elements/ContainerScreen';
 
 // Components
 import ButtonCreateTrack from '../components/ButtonCreateTrack';
-import ModalForm from '../components/Form';
+import CountIndicator from '../components/CountIndicator';
 
 // Types
 import { InitialRouteNativeStack } from '../App';
+
+// Contexts
+import { useData } from '../contexts/DataContext';
 
 type HomeNavigationProp = NavigationProp<InitialRouteNativeStack, "home">;
 
 export default function Home() {
   const navigation = useNavigation<HomeNavigationProp>();
+  const { listTimerPerMonth } = useData();
 
   return (
     <ContainerScreen>
       <StatusBar style="light" />
       <ButtonCreateTrack
         onPress={() => navigation.navigate("registerTrack")}
+      />
+      <CountIndicator
+        list={listTimerPerMonth}
       />
     </ContainerScreen>
   );

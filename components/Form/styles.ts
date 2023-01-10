@@ -1,5 +1,6 @@
 // Modules
 import styled from "styled-components/native";
+import MaskInput from "react-native-mask-input";
 
 // Styles
 import colors from "../../styles/colors";
@@ -45,7 +46,7 @@ export const Fields = styled.View`
 `;
 
 export const ContainerField = styled.View`
-  padding: 8px;
+  padding: 12px;
 
   border-width: 2px;
 
@@ -56,7 +57,7 @@ export const ContainerField = styled.View`
   position: relative;
 `;
 
-export const Field = styled.TextInput`
+export const Field = styled(MaskInput)`
   font-size: 16px;
 
   color: ${colors.white};

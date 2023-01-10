@@ -1,10 +1,8 @@
-import { createContext, useContext, useState, useCallback } from "react";
+// Modules
+import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type TimerPerMonth = {
-  monthOfTimer: {
-    month: string;
-    year: string;
-  };
   date: string;
   timer: string;
 }
@@ -25,7 +23,24 @@ export function DataProvider({ children }: DataProviderProps) {
   
   const addTimerTrack = useCallback((value: TimerPerMonth) => {
     setListTimerPerMonth([...listTimerPerMonth, value]);
+    AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
   }, [listTimerPerMonth])
+  
+  const getDataStorage = useCallback(async () => {
+    const dataJson = await AsyncStorage.getItem("@data");
+
+    if (dataJson) {
+      setListTimerPerMonth(JSON.parse(dataJson));
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
+  // }, [listTimerPerMonth.length]);
+
+  useEffect(() => {
+    getDataStorage();
+  }, []);
 
   return (
     <DataContext.Provider value={{
