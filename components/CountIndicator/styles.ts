@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import colors from "../../styles/colors";
 
 export const Container = styled.View`
-  border: 1px solid ${colors.white};
+  border: 1px solid ${colors.primary_level_7};
 
   justify-content: center;
 
@@ -20,7 +20,7 @@ export const TextProgressTrack = styled.Text`
   
   font-size: 24px;
 
-  color: ${colors.white};
+  color: ${colors.primary_level_7};
 `;
 
 export const TextMain = styled.Text`
@@ -50,7 +50,7 @@ export const ExtraTimeIndicator = styled.Text<ExtraTimeIndicatorProps>`
       return "red";
 
     } else {
-      return colors.white;
+      return colors.primary_level_7;
     }
   }};
 `;
@@ -58,6 +58,6 @@ export const ExtraTimeIndicator = styled.Text<ExtraTimeIndicatorProps>`
 export const BoxDate = styled.View`
   padding: 24px;
 
-  border-bottom-color: ${colors.white};
+  border-bottom-color: ${colors.primary_level_7};
   border-bottom-width: 2px;
 `;

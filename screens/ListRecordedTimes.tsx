@@ -1,7 +1,9 @@
 // Modules
-import { StatusBar } from 'expo-status-bar';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import {  } from "@react-navigation/native-stack";
+
+// Components
+import SectionDate from '../components/SectionDate';
+import ItemDate from "../components/ItemDate";
 
 // Elements
 import ContainerScreen from '../elements/ContainerScreen';
@@ -20,8 +22,16 @@ export default function ListRecordedTimes() {
 
   return (
     <ContainerScreen>
-
-
+      <SectionDate dateLabel="10/2010">
+        <ItemDate
+          day={2}
+          timer="12:23:12"
+        />
+        <ItemDate
+          day={3}
+          timer="15:23:12"
+        />
+      </SectionDate>
     </ContainerScreen>
   );
 }
