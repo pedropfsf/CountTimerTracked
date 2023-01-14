@@ -27,7 +27,7 @@ export const TextMain = styled.Text`
   
   font-size: 32px;
   
-  color: ${colors.white};
+  color: ${colors.primary_level_5};
 
   margin-top: 16px;
   margin-left: 16px;

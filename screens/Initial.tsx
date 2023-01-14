@@ -11,14 +11,14 @@ import ButtonCreateTrack from '../components/ButtonCreateTrack';
 import CountIndicator from '../components/CountIndicator';
 
 // Types
-import { InitialRouteNativeStack } from '../App';
+import { InitialRouteNativeStack } from '../routes/HomeRoute';
 
 // Contexts
 import { useData } from '../contexts/DataContext';
 
-type HomeNavigationProp = NavigationProp<InitialRouteNativeStack, "home">;
+type HomeNavigationProp = NavigationProp<InitialRouteNativeStack, "initial">;
 
-export default function Home() {
+export default function Initial() {
   const navigation = useNavigation<HomeNavigationProp>();
   const { listTimerPerMonth } = useData();
 

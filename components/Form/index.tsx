@@ -24,7 +24,7 @@ import {
 import { useData } from "../../contexts/DataContext";
 
 // Types
-import { InitialRouteNativeStack } from "../../App";
+import { InitialRouteNativeStack } from "../../routes/HomeRoute";
 
 // Utils
 import Masks from "../../utils/Masks";
@@ -87,7 +87,7 @@ export default function Form() {
       timer: fieldData.timer,
     });
 
-    navigation.navigate("home");
+    navigation.navigate("initial");
   }, [fieldData]);
 
   const MONTH_DATE_MASK = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
