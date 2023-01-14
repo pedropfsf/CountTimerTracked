@@ -27,23 +27,26 @@ export function DataProvider({ children }: DataProviderProps) {
   const [listTimerPerMonth, setListTimerPerMonth] = useState([] as TimerPerMonth[]);
   
   const addTimerTrack = useCallback((value: TimerPerMonth) => {
-    setListTimerPerMonth([...listTimerPerMonth, value]);
-    AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
+    const newData = [...listTimerPerMonth, value];
+
+    setListTimerPerMonth(newData);
+    AsyncStorage.setItem("@data", JSON.stringify(newData));
   }, [listTimerPerMonth]);
 
   const editTimerTrack = useCallback((id: string, value: DataTimerPerMonth) => {
-    const item = listTimerPerMonth.find(item => item.id === id);
-    
-    if (item) {
-      setListTimerPerMonth(listTimerPerMonth.map(oldItem => {
-        if (item.id === oldItem.id) {
-          return item;
-        }
+    const newData = listTimerPerMonth.map(oldItem => {
+      if (id === oldItem.id) {
+        return {
+          ...oldItem,
+          ...value
+        };
+      }
 
-        return oldItem;
-      }));
-      AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
-    }
+      return oldItem;
+    });
+
+    setListTimerPerMonth(newData);
+    AsyncStorage.setItem("@data", JSON.stringify(newData));
   }, [listTimerPerMonth]);
   
   const getTimerTrackById = useCallback((id: string) => {
