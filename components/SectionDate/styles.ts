@@ -6,6 +6,9 @@ import colors from "../../styles/colors";
 
 export const Container = styled.View`
   width: 100%;
+
+  margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 export const Title = styled.Text`

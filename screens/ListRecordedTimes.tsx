@@ -1,6 +1,7 @@
 // Modules
 import { useMemo } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import moment from "moment";
 
 // Components
 import SectionDate from '../components/SectionDate';
@@ -15,7 +16,9 @@ import { InitialRouteBottomTab } from '../App';
 
 // Contexts
 import { useData } from '../contexts/DataContext';
-import moment from "moment";
+
+// Utils
+import AppScreen from "../utils/AppScreen";
 
 type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "listRecordedTimes">;
 
@@ -42,7 +45,11 @@ export default function ListRecordedTimes() {
         currentYearLoop === oldYearLoop 
       )
 
+      console.log("currentMonthLoop", currentMonthLoop);
+      console.log("oldMonthLoop", oldMonthLoop);
       if (isRepeat) {
+        oldMonthLoop = currentMonthLoop;
+        oldYearLoop = currentYearLoop;
         break;
       }
 
@@ -59,22 +66,26 @@ export default function ListRecordedTimes() {
           titleSectionDate,
           listTrack: listTimerPerSection
         });
-
-        oldMonthLoop = currentMonthLoop;
-        oldYearLoop = currentYearLoop;
     }
 
     return data;
   }, [listTimerPerMonth]);
 
-  console.log(listTimerPerMonth);
+  console.log(dataFormatted);
 
   return (
-    <ContainerScreen>
-      <Scroll>
+    <ContainerScreen 
+      style={{ 
+        paddingTop: AppScreen.getHeightStatusBar(),
+        paddingLeft: 0, 
+        paddingRight: 0, 
+        paddingBottom: 84 
+      }}
+    >
+      <Scroll showsVerticalScrollIndicator={false}>
         {
-          dataFormatted.map(({ titleSectionDate, listTrack }) => (
-            <SectionDate dateLabel={titleSectionDate} key={titleSectionDate}>
+          dataFormatted.map(({ titleSectionDate, listTrack }, index) => (
+            <SectionDate dateLabel={titleSectionDate} key={index}>
               {
                 listTrack.map(({ day, timer }, index) => (
                   <ItemDate
