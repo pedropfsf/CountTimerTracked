@@ -100,7 +100,7 @@ export default function Form() {
           fieldsActive.includes("date")
           &&
           <ContainerFieldAnimation style={stylesFieldDate}>
-            <Label>Data (mês/dia/ano)</Label>
+            <Label>Data (dia/mês/ano)</Label>
             <Field
               onFocus={() => {
                 setFieldsActive(fieldsActive.filter(field => field === "date"));

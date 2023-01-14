@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // Screens
-import HomeRoute from "./routes/HomeRoute";
+import HomeRoute, { InitialRouteNativeStack } from "./routes/HomeRoute";
 
 // Contexts
 import { DataProvider } from "./contexts/DataContext";
@@ -22,6 +22,7 @@ export type InitialRouteBottomTab = {
 const BottomTab = createBottomTabNavigator<InitialRouteBottomTab>();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <DataProvider>
@@ -55,7 +56,7 @@ export default function App() {
                     colors.primary_level_3
                   }
                 />
-              )
+              ),
             }}
           />
           {/* <BottomTab.Screen name="registerTrack" component={RegisterTrack}/> */}

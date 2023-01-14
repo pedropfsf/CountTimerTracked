@@ -9,7 +9,7 @@ import AppScreen from "../../utils/AppScreen";
 
 export const AreaPress = styled.TouchableOpacity`
   position: absolute;
-  top: 24px;
+  bottom: 84px;
   left: ${(AppScreen.getSizeDimensions("width") / 2) / 1.2}px
 `;
 

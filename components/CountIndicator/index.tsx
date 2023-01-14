@@ -9,16 +9,14 @@ import {
   TextProgressTrack, 
   ExtraTimeIndicator, 
   TextMain,
-  ExtraTimeIndicatorProps,
   BoxDate
 } from "./styles";
 import { Button } from "react-native";
 
-// Types
+// Types 
 import { TimerPerMonth } from "../../contexts/DataContext";
 
 // Utils
-import colors from "../../styles/colors";
 import Timer from "../../utils/Timer";
 
 type CountIndicatorProps = {
@@ -29,9 +27,9 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
   const dataFormatted = useMemo(() => {
     const listTimers = list
       .filter(timer => (
-        moment(timer.date, "MM/DD/YYYY").get("month") == moment().get("month")
+        moment(timer.date, "DD/MM/YYYY").get("month") == moment().get("month")
         &&
-        moment(timer.date, "MM/DD/YYYY").get("year") == moment().get("year")
+        moment(timer.date, "DD/MM/YYYY").get("year") == moment().get("year")
       ))
       .map(({ timer }) => {
         const hours = Number(timer.split(":")[0]);
@@ -65,6 +63,10 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
       <ExtraTimeIndicator colorStatus={dataFormatted.necessaryTimer > 0 ? "more" : "less"}>
         {Timer.convertSecondsInTimer(dataFormatted.necessaryTimer, true)}
       </ExtraTimeIndicator>
+      {/* <Button
+        title="Limpar"
+        onPress={() => AsyncStorage.clear()}
+      /> */}
     </Container>
   )
 }

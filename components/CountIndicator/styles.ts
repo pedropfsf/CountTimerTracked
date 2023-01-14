@@ -12,6 +12,7 @@ export const Container = styled.View`
   border-radius: 24px;
 
   padding-bottom: 24px;
+  margin-bottom: 64px;
 `;
 
 export const TextProgressTrack = styled.Text`

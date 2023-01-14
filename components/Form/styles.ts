@@ -11,6 +11,8 @@ export const ContentContainer = styled.View`
   align-items: center;
   
   width: 100%;
+
+  margin-bottom: 64px;
 `;
 
 export const PressButton = styled.TouchableOpacity`
