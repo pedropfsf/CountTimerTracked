@@ -30,6 +30,8 @@ export const TextMain = styled.Text`
   color: ${colors.white};
 
   margin-top: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 export type ExtraTimeIndicatorProps = {
