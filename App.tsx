@@ -3,7 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // Screens
-import HomeRoute, { InitialRouteNativeStack } from "./routes/HomeRoute";
+import HomeRoute from "./routes/HomeRoute";
+import ListRecordedTimes from "./screens/ListRecordedTimes";
 
 // Contexts
 import { DataProvider } from "./contexts/DataContext";
@@ -13,6 +14,7 @@ import colors from "./styles/colors";
 
 // Icons
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export type InitialRouteBottomTab = {
   home: undefined;
@@ -51,15 +53,32 @@ export default function App() {
                   size={24} 
                   color={focused 
                     ? 
-                    colors.primary_level_1 
+                    colors.primary_level_3 
                     : 
-                    colors.primary_level_3
+                    colors.primary_level_1
                   }
                 />
               ),
             }}
           />
-          {/* <BottomTab.Screen name="registerTrack" component={RegisterTrack}/> */}
+          <BottomTab.Screen 
+            name="listRecordedTimes" 
+            component={ListRecordedTimes}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <MaterialIcons 
+                  name="view-list" 
+                  size={24} 
+                  color={focused 
+                    ? 
+                    colors.primary_level_3 
+                    : 
+                    colors.primary_level_1
+                  }
+                />
+              ),
+            }}
+          />
         </BottomTab.Navigator>
       </DataProvider>
     </NavigationContainer>
