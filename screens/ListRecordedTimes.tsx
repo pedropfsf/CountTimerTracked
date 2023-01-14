@@ -25,32 +25,23 @@ type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "li
 export default function ListRecordedTimes() {
   const { listTimerPerMonth } = useData();
   const navigation = useNavigation<ListRecordedTimesNavigationProp>();
-
+  
   const dataFormatted = useMemo(() => {
     let data = [];
-    let currentMonthLoop: any;
-    let oldMonthLoop: any;
-    let currentYearLoop: any;
-    let oldYearLoop: any;
+    const listSet = new Set();
     
     for(const index in listTimerPerMonth) {
       const item = listTimerPerMonth[index];
+      
+      const titleSectionDate = moment(item.date, "DD/MM/YYYY").format("MM/YYYY");
+      const currentMonthLoop = moment(item.date, "DD/MM/YYYY").month();
 
-      currentMonthLoop = moment(item.date, "DD/MM/YYYY").month();
-      currentYearLoop = moment(item.date, "DD/MM/YYYY").year();
-
-      const isRepeat = (
-        currentMonthLoop === oldMonthLoop 
-        &&
-        currentYearLoop === oldYearLoop 
-      )
-
-      console.log("currentMonthLoop", currentMonthLoop);
-      console.log("oldMonthLoop", oldMonthLoop);
-      if (isRepeat) {
-        oldMonthLoop = currentMonthLoop;
-        oldYearLoop = currentYearLoop;
-        break;
+      const isDuplicated = listSet.has(titleSectionDate);
+      listSet.add(titleSectionDate);
+      
+      if (isDuplicated) {
+        console.log("Entrou")
+        continue;
       }
 
       const listTimerPerSection = listTimerPerMonth
@@ -60,18 +51,14 @@ export default function ListRecordedTimes() {
           timer: item.timer
         }))
 
-        const titleSectionDate = moment(item.date, "DD/MM/YYYY").format("MM/YYYY");
-
-        data.push({
-          titleSectionDate,
-          listTrack: listTimerPerSection
-        });
+      data.push({
+        titleSectionDate,
+        listTrack: listTimerPerSection
+      });
     }
 
     return data;
   }, [listTimerPerMonth]);
-
-  console.log(dataFormatted);
 
   return (
     <ContainerScreen 
