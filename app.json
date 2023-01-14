@@ -19,6 +19,14 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ba261ed7-8f9c-409b-bc2f-d8c183a2c4d7"
+      }
+    },
+    "android": {
+      "package": "com.astronauto.countTimerTracked"
     }
   }
 }
