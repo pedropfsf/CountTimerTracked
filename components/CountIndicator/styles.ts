@@ -12,13 +12,13 @@ export const Container = styled.View`
   border-radius: 24px;
 
   padding-bottom: 24px;
-  margin-bottom: 64px;
+  margin-bottom: 140px;
 `;
 
 export const TextProgressTrack = styled.Text`
   text-align: center;
   
-  font-size: 24px;
+  font-size: 48px;
 
   color: ${colors.primary_level_7};
 `;
@@ -26,7 +26,7 @@ export const TextProgressTrack = styled.Text`
 export const TextMain = styled.Text`
   text-align: center;
   
-  font-size: 32px;
+  font-size: 56px;
   
   color: ${colors.primary_level_5};
 
@@ -42,6 +42,8 @@ export type ExtraTimeIndicatorProps = {
 export const ExtraTimeIndicator = styled.Text<ExtraTimeIndicatorProps>`
   text-align: center;
   
+  font-size: 32px;
+
   color: ${props => {
     if (props.colorStatus === "more") {
       return "green";

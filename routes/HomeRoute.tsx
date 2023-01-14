@@ -2,15 +2,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
-import Initial from "../screens/Initial";
+import InitialHome from "../screens/InitialHome";
 import RegisterTrack from "../screens/RegisterTrack";
 
-export type InitialRouteNativeStack = {
-  initial: undefined;
+export type HomeInitialRouteNativeStack = {
+  initialHome: undefined;
   registerTrack: undefined;
 }
 
-const NativeStack = createNativeStackNavigator<InitialRouteNativeStack>();
+const NativeStack = createNativeStackNavigator<HomeInitialRouteNativeStack>();
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
         headerShown: false,
       }}
     >
-      <NativeStack.Screen name="initial" component={Initial}/>
+      <NativeStack.Screen name="initialHome" component={InitialHome}/>
       <NativeStack.Screen name="registerTrack" component={RegisterTrack}/>
     </NativeStack.Navigator>
   );

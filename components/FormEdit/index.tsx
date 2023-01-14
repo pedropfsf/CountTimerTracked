@@ -1,9 +1,8 @@
 // Modules
 import { useState, useEffect, useCallback } from "react";
-import colors from "../../styles/colors";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { Alert, Keyboard } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { useNavigation, useRoute, NavigationProp, RouteProp  } from "@react-navigation/native";
 import moment from "moment";
 
 // Elements
@@ -24,29 +23,37 @@ import {
 import { useData } from "../../contexts/DataContext";
 
 // Types
-import { InitialRouteNativeStack } from "../../routes/HomeRoute";
+import { ListRecordedInitialRouteNativeStack } from "../../routes/ListRecordedTimesRoutes";
 
 // Utils
 import ID from "../../utils/ID";
 
+// Styles
+import colors from "../../styles/colors";
+
 const ContainerFieldAnimation = Animated.createAnimatedComponent(ContainerField);
 
 const initialData = {
-  monthText: "",
   date: "",
   timer: "",
 };
 
 const initialFieldsActive = ["month", "date", "timer"];
 
-type RegisterTrackNavigationProp = NavigationProp<InitialRouteNativeStack, "registerTrack">;
+type RegisterTrackNavigationProp = NavigationProp<ListRecordedInitialRouteNativeStack, "editTrack">;
+type RegisterTrackRouteProp = RouteProp<ListRecordedInitialRouteNativeStack, "editTrack">;
 
-export default function Form() {
+export default function FormEdit() {
   const navigation = useNavigation<RegisterTrackNavigationProp>();
+  const route = useRoute<RegisterTrackRouteProp>();
 
   const [fieldData, setFieldData] = useState(initialData);
   const [fieldsActive, setFieldsActive] = useState(initialFieldsActive);
-  const { addTimerTrack } = useData();
+  const { 
+    addTimerTrack, 
+    getTimerTrackById, 
+    editTimerTrack 
+  } = useData();
 
   const focusFieldDate = useSharedValue(`${colors.white}50`);
   const focusFieldTimer = useSharedValue(`${colors.white}50`);
@@ -64,12 +71,19 @@ export default function Form() {
       setFieldsActive(initialFieldsActive);
     });
 
+    const data = getTimerTrackById(route.params.id);
+
+    setFieldData({
+      date: data?.date ?? "",
+      timer: data?.timer ?? "",
+    });
+
     return () => {
       eventHiddenKeyboard.remove()
     }
   }, []);
 
-  const registerTimerTrack = useCallback(() => {
+  const handleEditTimerTrack = useCallback(() => {
     if (!fieldData.date.length) {
       return Alert.alert("Preencha o campo de data!!!");
     }
@@ -82,14 +96,13 @@ export default function Form() {
       return Alert.alert("Digite uma data válida");
     }
 
-    addTimerTrack({
-      id: ID.gerenate(),
+    editTimerTrack(route.params.id, {
       date: fieldData.date,
-      timer: fieldData.timer,
+      timer: fieldData.timer 
     });
 
-    navigation.navigate("initial");
-  }, [fieldData]);
+    navigation.navigate("initialListRecordedTimesRoutes");
+  }, [fieldData, route]);
 
   const MONTH_DATE_MASK = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
   const MONTH_TIMER_MASK = [/\d/, /\d/, ":", /\d/, /\d/, ":", /\d/, /\d/];
@@ -144,10 +157,10 @@ export default function Form() {
         }
       </Fields>
       <ActionForm>
-        <PressButton onPress={registerTimerTrack}>
+        <PressButton onPress={handleEditTimerTrack}>
           <ButtonArea>
             <ButtonTitle>
-              Cadastrar
+              Editar
             </ButtonTitle>
           </ButtonArea>
         </PressButton>

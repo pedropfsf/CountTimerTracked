@@ -22,7 +22,7 @@ import AppScreen from "../utils/AppScreen";
 
 type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "listRecordedTimes">;
 
-export default function ListRecordedTimes() {
+export default function InitialListRecordedTimes() {
   const { listTimerPerMonth } = useData();
   const navigation = useNavigation<ListRecordedTimesNavigationProp>();
   
@@ -46,6 +46,7 @@ export default function ListRecordedTimes() {
       const listTimerPerSection = listTimerPerMonth
         .filter(({ date }) => moment(date, "DD/MM/YYYY").month() === currentMonthLoop)
         .map(item => ({
+          id: item.id,
           day: item.date.split("/")[0].replace(/0/, ""),
           timer: item.timer
         }))
@@ -73,8 +74,9 @@ export default function ListRecordedTimes() {
           dataFormatted.map(({ titleSectionDate, listTrack }, index) => (
             <SectionDate dateLabel={titleSectionDate} key={index}>
               {
-                listTrack.map(({ day, timer }, index) => (
+                listTrack.map(({ id, day, timer }, index) => (
                   <ItemDate
+                    id={id}
                     day={Number(day)}
                     timer={timer}
                     key={index}

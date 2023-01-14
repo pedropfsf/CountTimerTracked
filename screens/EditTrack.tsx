@@ -6,14 +6,14 @@ import ContainerScreen from '../elements/ContainerScreen';
 import Title from '../elements/Title';
 
 // Components
-import FormCreate from '../components/FormCreate';
+import FormEdit from '../components/FormEdit';
 
-export default function RegisterTrack() {
+export default function EditTrack() {
   return (
     <ContainerScreen>
       <StatusBar style="light" />
-      <Title>Cadastrar registro de tempo</Title>
-      <FormCreate/>
+      <Title>Editar registro de tempo</Title>
+      <FormEdit/>
     </ContainerScreen>
   );
 }

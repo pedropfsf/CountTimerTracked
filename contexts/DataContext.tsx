@@ -8,9 +8,13 @@ export type TimerPerMonth = {
   timer: string;
 }
 
+type DataTimerPerMonth = Pick<TimerPerMonth, "date" | "timer">;
+
 type DataContextProps = {
   listTimerPerMonth: TimerPerMonth[];
   addTimerTrack: (value: TimerPerMonth) => void;
+  editTimerTrack: (id: string, value: DataTimerPerMonth) => void;
+  getTimerTrackById: (id: string) => TimerPerMonth | undefined;
 };
 
 const DataContext = createContext({} as DataContextProps);
@@ -25,7 +29,26 @@ export function DataProvider({ children }: DataProviderProps) {
   const addTimerTrack = useCallback((value: TimerPerMonth) => {
     setListTimerPerMonth([...listTimerPerMonth, value]);
     AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
-  }, [listTimerPerMonth])
+  }, [listTimerPerMonth]);
+
+  const editTimerTrack = useCallback((id: string, value: DataTimerPerMonth) => {
+    const item = listTimerPerMonth.find(item => item.id === id);
+    
+    if (item) {
+      setListTimerPerMonth(listTimerPerMonth.map(oldItem => {
+        if (item.id === oldItem.id) {
+          return item;
+        }
+
+        return oldItem;
+      }));
+      AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
+    }
+  }, [listTimerPerMonth]);
+  
+  const getTimerTrackById = useCallback((id: string) => {
+    return listTimerPerMonth.find(item => item.id === id);
+  }, [listTimerPerMonth]);
   
   const getDataStorage = useCallback(async () => {
     const dataJson = await AsyncStorage.getItem("@data");
@@ -42,7 +65,9 @@ export function DataProvider({ children }: DataProviderProps) {
   return (
     <DataContext.Provider value={{
       listTimerPerMonth,
-      addTimerTrack
+      addTimerTrack,
+      editTimerTrack,
+      getTimerTrackById
     }}>
       {children}
     </DataContext.Provider>

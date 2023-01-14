@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // Screens
 import HomeRoute from "./routes/HomeRoute";
-import ListRecordedTimes from "./screens/ListRecordedTimes";
+import ListRecordedTimesRoutes from "./routes/ListRecordedTimesRoutes";
 
 // Contexts
 import { DataProvider } from "./contexts/DataContext";
@@ -63,7 +63,7 @@ export default function App() {
           />
           <BottomTab.Screen 
             name="listRecordedTimes" 
-            component={ListRecordedTimes}
+            component={ListRecordedTimesRoutes}
             options={{
               tabBarIcon: ({ focused }) => (
                 <MaterialIcons 
