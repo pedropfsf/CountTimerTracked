@@ -1,8 +1,30 @@
 // Modules
-import { useState, useEffect, useCallback } from "react";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
-import { Alert, Keyboard } from "react-native";
-import { useNavigation, useRoute, NavigationProp, RouteProp  } from "@react-navigation/native";
+import { 
+  useState, 
+  useEffect, 
+  useCallback,
+  useRef
+} from "react";
+
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withTiming 
+} from "react-native-reanimated";
+
+import { 
+  Alert, 
+  Keyboard, 
+  Pressable
+} from "react-native";
+
+import { 
+  useNavigation, 
+  useRoute, 
+  NavigationProp, 
+  RouteProp  
+} from "@react-navigation/native";
+
 import moment from "moment";
 
 // Elements
@@ -49,6 +71,10 @@ export default function FormEdit() {
 
   const [fieldData, setFieldData] = useState(initialData);
   const [fieldsActive, setFieldsActive] = useState(initialFieldsActive);
+
+  const fieldDateRef = useRef<any>();
+  const fieldTimerRef = useRef<any>();
+
   const { 
     getTimerTrackById, 
     editTimerTrack, 
@@ -112,47 +138,67 @@ export default function FormEdit() {
         {
           fieldsActive.includes("date")
           &&
-          <ContainerFieldAnimation style={stylesFieldDate}>
-            <Label>Data (dia/mês/ano)</Label>
-            <Field
-              onFocus={() => {
-                setFieldsActive(fieldsActive.filter(field => field === "date"));
-                focusFieldDate.value = colors.white
-              }}
-              onBlur={() => {
-                setFieldsActive(initialFieldsActive);
-                focusFieldDate.value = `${colors.white}50`
-              }}
-              mask={MONTH_DATE_MASK}
-              value={fieldData.date}
-              onChangeText={text => setFieldData({ ...fieldData, date: text })}
-              placeholderTextColor={`${colors.white}90`}
-              keyboardType="numeric"
-            />
-          </ContainerFieldAnimation>
+          <Pressable 
+            style={{ width: "100%" }}
+            onPress={() => {
+              if (fieldDateRef.current) {
+                fieldDateRef.current.focus();
+              }
+            }}
+          >
+            <ContainerFieldAnimation style={stylesFieldDate}>
+              <Label>Data (dia/mês/ano)</Label>
+              <Field
+                ref={fieldDateRef}
+                onFocus={() => {
+                  setFieldsActive(fieldsActive.filter(field => field === "date"));
+                  focusFieldDate.value = colors.white
+                }}
+                onBlur={() => {
+                  setFieldsActive(initialFieldsActive);
+                  focusFieldDate.value = `${colors.white}50`
+                }}
+                mask={MONTH_DATE_MASK}
+                value={fieldData.date}
+                onChangeText={text => setFieldData({ ...fieldData, date: text })}
+                placeholderTextColor={`${colors.white}90`}
+                keyboardType="numeric"
+              />
+            </ContainerFieldAnimation>
+          </Pressable>
         }
         <Space/>
         {
           fieldsActive.includes("timer")
           &&
-          <ContainerFieldAnimation style={stylesFieldTimer}>
-            <Label>Tempo registrado</Label>
-            <Field
-              onFocus={() => {
-                setFieldsActive(fieldsActive.filter(field => field === "timer"));
-                focusFieldTimer.value = colors.white
-              }}
-              onBlur={() => {
-                setFieldsActive(initialFieldsActive);
-                focusFieldTimer.value = `${colors.white}50`
-              }}
-              mask={MONTH_TIMER_MASK}
-              value={fieldData.timer}
-              onChangeText={text => setFieldData({ ...fieldData, timer: text })}
-              placeholderTextColor={`${colors.white}90`}
-              keyboardType="numeric"
-            />
-          </ContainerFieldAnimation>
+          <Pressable 
+            style={{ width: "100%" }}
+            onPress={() => {
+              if (fieldTimerRef.current) {
+                fieldTimerRef.current.focus();
+              }
+            }}
+          >
+            <ContainerFieldAnimation style={stylesFieldTimer}>
+              <Label>Tempo registrado</Label>
+              <Field
+                ref={fieldTimerRef}
+                onFocus={() => {
+                  setFieldsActive(fieldsActive.filter(field => field === "timer"));
+                  focusFieldTimer.value = colors.white
+                }}
+                onBlur={() => {
+                  setFieldsActive(initialFieldsActive);
+                  focusFieldTimer.value = `${colors.white}50`
+                }}
+                mask={MONTH_TIMER_MASK}
+                value={fieldData.timer}
+                onChangeText={text => setFieldData({ ...fieldData, timer: text })}
+                placeholderTextColor={`${colors.white}90`}
+                keyboardType="numeric"
+              />
+            </ContainerFieldAnimation>
+          </Pressable>
         }
       </Fields>
       <ActionForm>

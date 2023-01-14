@@ -35,6 +35,7 @@ export default function InitialListRecordedTimes() {
       
       const titleSectionDate = moment(item.date, "DD/MM/YYYY").format("MM/YYYY");
       const currentMonthLoop = moment(item.date, "DD/MM/YYYY").month();
+      const currentYearLoop = moment(item.date, "DD/MM/YYYY").year();
 
       const isDuplicated = listSet.has(titleSectionDate);
       listSet.add(titleSectionDate);
@@ -44,7 +45,11 @@ export default function InitialListRecordedTimes() {
       }
 
       const listTimerPerSection = listTimerPerMonth
-        .filter(({ date }) => moment(date, "DD/MM/YYYY").month() === currentMonthLoop)
+        .filter(({ date }) => (
+          moment(date, "DD/MM/YYYY").month() === currentMonthLoop
+          &&
+          moment(date, "DD/MM/YYYY").year() === currentYearLoop
+        ))
         .map(item => ({
           id: item.id,
           day: item.date.split("/")[0].replace(/0/, ""),
