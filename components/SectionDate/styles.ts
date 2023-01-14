@@ -13,6 +13,8 @@ export const Title = styled.Text`
   
   font-size: 24px;
   font-weight: bold;
+
+  margin-bottom: 8px;
 `;
 
 export const Content = styled.View`

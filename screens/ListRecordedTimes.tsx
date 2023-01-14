@@ -8,6 +8,7 @@ import ItemDate from "../components/ItemDate";
 
 // Elements
 import ContainerScreen from '../elements/ContainerScreen';
+import Scroll from '../elements/Scroll';
 
 // Types
 import { InitialRouteBottomTab } from '../App';
@@ -25,36 +26,68 @@ export default function ListRecordedTimes() {
   const dataFormatted = useMemo(() => {
     let data = [];
     let currentMonthLoop: any;
+    let oldMonthLoop: any;
+    let currentYearLoop: any;
+    let oldYearLoop: any;
     
     for(const index in listTimerPerMonth) {
       const item = listTimerPerMonth[index];
 
       currentMonthLoop = moment(item.date, "DD/MM/YYYY").month();
+      currentYearLoop = moment(item.date, "DD/MM/YYYY").year();
 
-      const listTimerOfMonth = listTimerPerMonth
+      const isRepeat = (
+        currentMonthLoop === oldMonthLoop 
+        &&
+        currentYearLoop === oldYearLoop 
+      )
+
+      if (isRepeat) {
+        break;
+      }
+
+      const listTimerPerSection = listTimerPerMonth
         .filter(({ date }) => moment(date, "DD/MM/YYYY").month() === currentMonthLoop)
         .map(item => ({
           day: item.date.split("/")[0].replace(/0/, ""),
           timer: item.timer
         }))
+
+        const titleSectionDate = moment(item.date, "DD/MM/YYYY").format("MM/YYYY");
+
+        data.push({
+          titleSectionDate,
+          listTrack: listTimerPerSection
+        });
+
+        oldMonthLoop = currentMonthLoop;
+        oldYearLoop = currentYearLoop;
     }
 
+    return data;
   }, [listTimerPerMonth]);
 
   console.log(listTimerPerMonth);
 
   return (
     <ContainerScreen>
-      <SectionDate dateLabel="10/2010">
-        <ItemDate
-          day={2}
-          timer="12:23:12"
-        />
-        <ItemDate
-          day={3}
-          timer="15:23:12"
-        />
-      </SectionDate>
+      <Scroll>
+        {
+          dataFormatted.map(({ titleSectionDate, listTrack }) => (
+            <SectionDate dateLabel={titleSectionDate} key={titleSectionDate}>
+              {
+                listTrack.map(({ day, timer }, index) => (
+                  <ItemDate
+                    day={Number(day)}
+                    timer={timer}
+                    key={index}
+                  />
+                ))
+              }
+            </SectionDate>
+          ))
+        }
+      </Scroll>
     </ContainerScreen>
   );
 }
