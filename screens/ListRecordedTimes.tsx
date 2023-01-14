@@ -40,7 +40,6 @@ export default function ListRecordedTimes() {
       listSet.add(titleSectionDate);
       
       if (isDuplicated) {
-        console.log("Entrou")
         continue;
       }
 

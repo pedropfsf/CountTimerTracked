@@ -26,24 +26,35 @@ type CountIndicatorProps = {
 
 export default function CountIndicator({ list }: CountIndicatorProps) {
   const dataFormatted = useMemo(() => {
-    const listTimers = list
-      .filter(timer => (
-        moment(timer.date, "DD/MM/YYYY").get("month") == moment().get("month")
-        &&
-        moment(timer.date, "DD/MM/YYYY").get("year") == moment().get("year")
-      ))
+    const listCurrentMonth = list
+    .filter(timer => (
+      moment(timer.date, "DD/MM/YYYY").get("month") == moment().get("month")
+      &&
+      moment(timer.date, "DD/MM/YYYY").get("year") == moment().get("year")
+    ));
+
+    const listCurrentMonthSet = new Set();
+    const totalDaysWorkedPerMonth = listCurrentMonth.filter(item => {
+      const day = moment(item.date, "DD/MM/YYYY").day();
+      const isDuplicated = listCurrentMonthSet.has(day);
+      
+      listCurrentMonthSet.add(day);
+
+      return !isDuplicated;
+    }).length;
+
+    const listTimers = listCurrentMonth
       .map(({ timer }) => {
         const hours = Number(timer.split(":")[0]);
         const minutes = Number(timer.split(":")[1]);
         const seconds = Number(timer.split(":")[2]);
 
         return Timer.convertTimerInSeconds({ hours, minutes, seconds })
-      })
-  
+      });
 
     const totalTimerCurrent = listTimers.length && listTimers
       .reduce((previousValue, currentValue) => (previousValue ?? 0) + (currentValue ?? 0));
-    const totalCreatePerDay = (listTimers.length * 8) * 3600;
+    const totalCreatePerDay = (totalDaysWorkedPerMonth * 8) * 3600;
     const necessaryTimer = totalTimerCurrent - totalCreatePerDay;
 
     return {
