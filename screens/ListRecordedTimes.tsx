@@ -1,4 +1,5 @@
 // Modules
+import { useMemo } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 // Components
@@ -13,12 +14,34 @@ import { InitialRouteBottomTab } from '../App';
 
 // Contexts
 import { useData } from '../contexts/DataContext';
+import moment from "moment";
 
 type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "listRecordedTimes">;
 
 export default function ListRecordedTimes() {
   const { listTimerPerMonth } = useData();
   const navigation = useNavigation<ListRecordedTimesNavigationProp>();
+
+  const dataFormatted = useMemo(() => {
+    let data = [];
+    let currentMonthLoop: any;
+    
+    for(const index in listTimerPerMonth) {
+      const item = listTimerPerMonth[index];
+
+      currentMonthLoop = moment(item.date, "DD/MM/YYYY").month();
+
+      const listTimerOfMonth = listTimerPerMonth
+        .filter(({ date }) => moment(date, "DD/MM/YYYY").month() === currentMonthLoop)
+        .map(item => ({
+          day: item.date.split("/")[0].replace(/0/, ""),
+          timer: item.timer
+        }))
+    }
+
+  }, [listTimerPerMonth]);
+
+  console.log(listTimerPerMonth);
 
   return (
     <ContainerScreen>

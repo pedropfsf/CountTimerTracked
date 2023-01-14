@@ -1,5 +1,5 @@
 // Modules
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -9,7 +9,8 @@ import {
   TextProgressTrack, 
   ExtraTimeIndicator, 
   TextMain,
-  BoxDate
+  BoxDate,
+  ExtraTimeIndicatorProps
 } from "./styles";
 import { Button } from "react-native";
 
@@ -52,6 +53,22 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
     }
   }, [list]);
 
+  const colorNecessaryTimer: ExtraTimeIndicatorProps["colorStatus"] = useMemo(() => {
+    if (dataFormatted.necessaryTimer > 0) {
+      return "more";
+    } 
+   
+    if (dataFormatted.necessaryTimer < 0) {
+      return "less";
+    } 
+
+    if (dataFormatted.necessaryTimer === 0) {
+      return "none";
+    }
+
+    return undefined;
+  }, [dataFormatted]);
+
   return (
     <Container>
       <BoxDate>
@@ -60,8 +77,8 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
         </TextProgressTrack>
       </BoxDate>
       <TextMain>{dataFormatted.totalCurrent ?? "00:00:00"}</TextMain>
-      <ExtraTimeIndicator colorStatus={dataFormatted.necessaryTimer > 0 ? "more" : "less"}>
-        {Timer.convertSecondsInTimer(dataFormatted.necessaryTimer, true)}
+      <ExtraTimeIndicator colorStatus={colorNecessaryTimer}>
+        {Timer.convertSecondsInTimer(dataFormatted.necessaryTimer, colorNecessaryTimer !== "none")}
       </ExtraTimeIndicator>
       {/* <Button
         title="Limpar"

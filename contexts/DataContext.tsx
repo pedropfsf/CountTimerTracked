@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useCallback, useEffect } from "rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type TimerPerMonth = {
+  id: string;
   date: string;
   timer: string;
 }
@@ -33,10 +34,6 @@ export function DataProvider({ children }: DataProviderProps) {
       setListTimerPerMonth(JSON.parse(dataJson));
     }
   }, []);
-
-  // useEffect(() => {
-  //   AsyncStorage.setItem("@data", JSON.stringify(listTimerPerMonth));
-  // }, [listTimerPerMonth.length]);
 
   useEffect(() => {
     getDataStorage();

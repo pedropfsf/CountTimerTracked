@@ -14,21 +14,23 @@ import colors from "../../styles/colors";
 type ItemDateProps = {
   day: number;
   timer: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
 };
 
-export default function ItemDate({ day, timer }: ItemDateProps) {
+export default function ItemDate({ day, timer, onEdit, onDelete }: ItemDateProps) {
   return (
     <Container>
       <TextItem>Dia {day}</TextItem>
       <TextItem>{timer}</TextItem>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onEdit}>
         <Feather 
           name="edit-2" 
           size={32} 
           color={colors.primary_level_5} 
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onDelete}>
         <MaterialIcons 
           name="delete-outline" 
           size={32} 

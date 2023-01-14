@@ -60,7 +60,7 @@ export const ContainerField = styled.View`
 `;
 
 export const Field = styled(MaskInput)`
-  font-size: 16px;
+  font-size: 24px;
 
   color: ${colors.white};
 `;
@@ -76,7 +76,7 @@ export const Label = styled.Text`
   font-weight: bold;
 
   position: absolute;
-  top: -67%;
+  top: -60%;
   left: 16px;
 `;
 

@@ -27,7 +27,7 @@ import { useData } from "../../contexts/DataContext";
 import { InitialRouteNativeStack } from "../../routes/HomeRoute";
 
 // Utils
-import Masks from "../../utils/Masks";
+import ID from "../../utils/ID";
 
 const ContainerFieldAnimation = Animated.createAnimatedComponent(ContainerField);
 
@@ -83,6 +83,7 @@ export default function Form() {
     }
 
     addTimerTrack({
+      id: ID.gerenate(),
       date: fieldData.date,
       timer: fieldData.timer,
     });
