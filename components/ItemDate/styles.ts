@@ -12,6 +12,10 @@ export const Container = styled.View`
   padding: 8px;
 `;
 
+export const Buttons = styled.View`
+  flex-direction: row;
+`;
+
 export const TextItem = styled.Text`
   color: ${colors.primary_level_8};
 

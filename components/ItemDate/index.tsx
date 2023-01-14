@@ -3,8 +3,15 @@ import { useCallback } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 // Components
-import { Container, TextItem } from "./styles";
+import { 
+  Container, 
+  TextItem, 
+  Buttons 
+} from "./styles";
 import { TouchableOpacity } from "react-native";
+
+// Contexts
+import { useData } from "../../contexts/DataContext";
 
 // Icons
 import { Feather } from '@expo/vector-icons';
@@ -25,6 +32,8 @@ type ItemDateProps = {
 };
 
 export default function ItemDate({ id, day, timer }: ItemDateProps) {
+  const { deleteTimerTrack } = useData();
+  
   const navigation = useNavigation<ListRecoredNavigationProp>();
 
   const handleEdit = useCallback(() => {
@@ -35,27 +44,32 @@ export default function ItemDate({ id, day, timer }: ItemDateProps) {
   ]);
 
   const handleDelete = useCallback(() => {
-
+    deleteTimerTrack(id);
   }, [id]);
 
   return (
     <Container>
       <TextItem>Dia {day}</TextItem>
       <TextItem>{timer}</TextItem>
-      <TouchableOpacity onPress={handleEdit}>
-        <Feather 
-          name="edit-2" 
-          size={32} 
-          color={colors.primary_level_5} 
-        />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleDelete}>
-        <MaterialIcons 
-          name="delete-outline" 
-          size={32} 
-          color={colors.danger} 
-        />
-      </TouchableOpacity>
+      <Buttons>
+        <TouchableOpacity 
+          onPress={handleEdit} 
+          style={{ marginRight: 8 }}
+        >
+          <Feather 
+            name="edit-2" 
+            size={32} 
+            color={colors.primary_level_7} 
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleDelete}>
+          <MaterialIcons 
+            name="delete-outline" 
+            size={32} 
+            color={colors.danger} 
+          />
+        </TouchableOpacity>
+      </Buttons>
     </Container>
   )
 } 

@@ -50,9 +50,8 @@ export default function FormEdit() {
   const [fieldData, setFieldData] = useState(initialData);
   const [fieldsActive, setFieldsActive] = useState(initialFieldsActive);
   const { 
-    addTimerTrack, 
     getTimerTrackById, 
-    editTimerTrack 
+    editTimerTrack, 
   } = useData();
 
   const focusFieldDate = useSharedValue(`${colors.white}50`);

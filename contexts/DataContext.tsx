@@ -15,6 +15,7 @@ type DataContextProps = {
   addTimerTrack: (value: TimerPerMonth) => void;
   editTimerTrack: (id: string, value: DataTimerPerMonth) => void;
   getTimerTrackById: (id: string) => TimerPerMonth | undefined;
+  deleteTimerTrack: (id: string) => void;
 };
 
 const DataContext = createContext({} as DataContextProps);
@@ -26,6 +27,10 @@ type DataProviderProps = {
 export function DataProvider({ children }: DataProviderProps) {
   const [listTimerPerMonth, setListTimerPerMonth] = useState([] as TimerPerMonth[]);
   
+  const getTimerTrackById = useCallback((id: string) => {
+    return listTimerPerMonth.find(item => item.id === id);
+  }, [listTimerPerMonth]);
+
   const addTimerTrack = useCallback((value: TimerPerMonth) => {
     const newData = [...listTimerPerMonth, value];
 
@@ -49,10 +54,10 @@ export function DataProvider({ children }: DataProviderProps) {
     AsyncStorage.setItem("@data", JSON.stringify(newData));
   }, [listTimerPerMonth]);
   
-  const getTimerTrackById = useCallback((id: string) => {
-    return listTimerPerMonth.find(item => item.id === id);
+  const deleteTimerTrack = useCallback((id: string) => {
+    setListTimerPerMonth(listTimerPerMonth.filter(item => item.id !== id))
   }, [listTimerPerMonth]);
-  
+
   const getDataStorage = useCallback(async () => {
     const dataJson = await AsyncStorage.getItem("@data");
 
@@ -68,9 +73,10 @@ export function DataProvider({ children }: DataProviderProps) {
   return (
     <DataContext.Provider value={{
       listTimerPerMonth,
+      getTimerTrackById,
       addTimerTrack,
       editTimerTrack,
-      getTimerTrackById
+      deleteTimerTrack,
     }}>
       {children}
     </DataContext.Provider>
