@@ -55,7 +55,10 @@ export function DataProvider({ children }: DataProviderProps) {
   }, [listTimerPerMonth]);
   
   const deleteTimerTrack = useCallback((id: string) => {
-    setListTimerPerMonth(listTimerPerMonth.filter(item => item.id !== id))
+    const newData = listTimerPerMonth.filter(item => item.id !== id);
+
+    setListTimerPerMonth(newData);
+    AsyncStorage.setItem("@data", JSON.stringify(newData));
   }, [listTimerPerMonth]);
 
   const getDataStorage = useCallback(async () => {

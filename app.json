@@ -26,7 +26,14 @@
       }
     },
     "android": {
-      "package": "com.astronauto.countTimerTracked"
+      "package": "com.astronauto.countTimerTracked",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#090C1E"
+      }
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content"
     }
   }
 }

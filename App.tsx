@@ -50,7 +50,7 @@ export default function App() {
               tabBarIcon: ({ focused }) => (
                 <Ionicons 
                   name="md-home" 
-                  size={24} 
+                  size={32} 
                   color={focused 
                     ? 
                     colors.primary_level_3 
@@ -68,7 +68,7 @@ export default function App() {
               tabBarIcon: ({ focused }) => (
                 <MaterialIcons 
                   name="view-list" 
-                  size={24} 
+                  size={32} 
                   color={focused 
                     ? 
                     colors.primary_level_3 

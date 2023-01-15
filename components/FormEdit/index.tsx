@@ -94,6 +94,8 @@ export default function FormEdit() {
   useEffect(() => {
     const eventHiddenKeyboard = Keyboard.addListener("keyboardDidHide", () => {
       setFieldsActive(initialFieldsActive);
+      focusFieldDate.value = `${colors.white}50`;
+      focusFieldTimer.value = `${colors.white}50`;
     });
 
     const data = getTimerTrackById(route.params.id);
@@ -117,8 +119,12 @@ export default function FormEdit() {
       return Alert.alert("Preencha o campo de tempo!!!");
     }
 
-    if (!moment(fieldData.date).isValid()) {
+    if (!moment(fieldData.date, "DD/MM/YYYY").isValid()) {
       return Alert.alert("Digite uma data válida");
+    }
+
+    if (!moment(fieldData.timer, "kk:mm:ss").isValid()) {
+      return Alert.alert("Digite um registro de tempo válido");
     }
 
     editTimerTrack(route.params.id, {
@@ -150,7 +156,7 @@ export default function FormEdit() {
               <Label>Data (dia/mês/ano)</Label>
               <Field
                 ref={fieldDateRef}
-                onFocus={() => {
+                onPressIn={() => {
                   setFieldsActive(fieldsActive.filter(field => field === "date"));
                   focusFieldDate.value = colors.white
                 }}
@@ -183,7 +189,7 @@ export default function FormEdit() {
               <Label>Tempo registrado</Label>
               <Field
                 ref={fieldTimerRef}
-                onFocus={() => {
+                onPressIn={() => {
                   setFieldsActive(fieldsActive.filter(field => field === "timer"));
                   focusFieldTimer.value = colors.white
                 }}

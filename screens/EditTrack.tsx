@@ -11,7 +11,6 @@ import FormEdit from '../components/FormEdit';
 export default function EditTrack() {
   return (
     <ContainerScreen>
-      <StatusBar style="light" />
       <Title>Editar registro de tempo</Title>
       <FormEdit/>
     </ContainerScreen>

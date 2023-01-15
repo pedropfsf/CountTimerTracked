@@ -1,7 +1,6 @@
 // Modules
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import {  } from "@react-navigation/native-stack";
 
 // Elements
 import ContainerScreen from '../elements/ContainerScreen';
@@ -24,7 +23,7 @@ export default function InitialHome() {
 
   return (
     <ContainerScreen>
-      <StatusBar style="light" />
+      <StatusBar style="light"/>
       <ButtonCreateTrack
         onPress={() => navigation.navigate("registerTrack")}
       />

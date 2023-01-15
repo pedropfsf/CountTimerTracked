@@ -15,12 +15,34 @@ export const ContentContainer = styled.View`
   margin-bottom: 64px;
 `;
 
+export const Box = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+`;
+
+export const ButtonSecondary = styled.Text`
+  border-radius: 8px;
+
+  color: ${colors.primary_level_1};
+
+  background-color: ${colors.primary_level_8};
+
+  padding: 12px;
+`;
+
 export const PressButton = styled.TouchableOpacity`
   width: 100%;
 `;
 
-export const ButtonArea = styled.View`
-  background-color: ${colors.primary_level_5};
+type ButtonAreaProps = {
+  backgroundColor?: string;
+}
+
+export const ButtonArea = styled.View<ButtonAreaProps>`
+  background-color: ${props => props.backgroundColor ?? colors.primary_level_5};
 
   padding: 16px;
 
@@ -85,9 +107,13 @@ export const ActionForm = styled.View`
   justify-content: flex-end;
 `;
 
-export const Space = styled.View`
+type SpaceProps = {
+  height?: number;
+};
+
+export const Space = styled.View<SpaceProps>`
   width: 1px;
-  height: 24px;
+  height: ${props => props.height ?? 24}px;
 `;
 
 export const IconArea = styled.View`

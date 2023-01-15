@@ -33,15 +33,11 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
       moment(timer.date, "DD/MM/YYYY").get("year") == moment().get("year")
     ));
 
-    const listCurrentMonthSet = new Set();
-    const totalDaysWorkedPerMonth = listCurrentMonth.filter(item => {
+    const listCurrentMonthSet = new Set();    
+    for(const item of listCurrentMonth) {
       const day = moment(item.date, "DD/MM/YYYY").day();
-      const isDuplicated = listCurrentMonthSet.has(day);
-      
       listCurrentMonthSet.add(day);
-
-      return !isDuplicated;
-    }).length;
+    }
 
     const listTimers = listCurrentMonth
       .map(({ timer }) => {
@@ -54,7 +50,7 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
 
     const totalTimerCurrent = listTimers.length && listTimers
       .reduce((previousValue, currentValue) => (previousValue ?? 0) + (currentValue ?? 0));
-    const totalCreatePerDay = (totalDaysWorkedPerMonth * 8) * 3600;
+    const totalCreatePerDay = (listCurrentMonthSet.size * 8) * 3600;
     const necessaryTimer = totalTimerCurrent - totalCreatePerDay;
 
     return {

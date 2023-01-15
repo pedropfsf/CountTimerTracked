@@ -24,7 +24,7 @@ type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "li
 
 export default function InitialListRecordedTimes() {
   const { listTimerPerMonth } = useData();
-  const navigation = useNavigation<ListRecordedTimesNavigationProp>();
+  // const navigation = useNavigation<ListRecordedTimesNavigationProp>();
   
   const dataFormatted = useMemo(() => {
     let data = [];
@@ -52,7 +52,7 @@ export default function InitialListRecordedTimes() {
         ))
         .map(item => ({
           id: item.id,
-          day: item.date.split("/")[0].replace(/0/, ""),
+          day: item.date.split("/")[0],
           timer: item.timer
         }))
 
@@ -65,6 +65,8 @@ export default function InitialListRecordedTimes() {
     return data;
   }, [listTimerPerMonth]);
 
+  console.log(dataFormatted);
+
   return (
     <ContainerScreen 
       style={{ 
@@ -76,15 +78,15 @@ export default function InitialListRecordedTimes() {
     >
       <Scroll showsVerticalScrollIndicator={false}>
         {
-          dataFormatted.map(({ titleSectionDate, listTrack }, index) => (
-            <SectionDate dateLabel={titleSectionDate} key={index}>
+          dataFormatted.map(({ titleSectionDate, listTrack }, indexData) => (
+            <SectionDate dateLabel={titleSectionDate} key={indexData}>
               {
-                listTrack.map(({ id, day, timer }, index) => (
+                listTrack.map(({ id, day, timer }, indexItem) => (
                   <ItemDate
                     id={id}
                     day={Number(day)}
                     timer={timer}
-                    key={index}
+                    key={indexItem}
                   />
                 ))
               }
