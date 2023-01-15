@@ -11,20 +11,14 @@ import ItemDate from "../components/ItemDate";
 import ContainerScreen from '../elements/ContainerScreen';
 import Scroll from '../elements/Scroll';
 
-// Types
-import { InitialRouteBottomTab } from '../App';
-
 // Contexts
 import { useData } from '../contexts/DataContext';
 
 // Utils
 import AppScreen from "../utils/AppScreen";
 
-type ListRecordedTimesNavigationProp = NavigationProp<InitialRouteBottomTab, "listRecordedTimes">;
-
 export default function InitialListRecordedTimes() {
   const { listTimerPerMonth } = useData();
-  // const navigation = useNavigation<ListRecordedTimesNavigationProp>();
   
   const dataFormatted = useMemo(() => {
     let data = [];
@@ -65,7 +59,8 @@ export default function InitialListRecordedTimes() {
     return data;
   }, [listTimerPerMonth]);
 
-  console.log(dataFormatted);
+  // console.log(dataFormatted.length && dataFormatted[0].listTrack);
+  // console.log(listTimerPerMonth);
 
   return (
     <ContainerScreen 
@@ -78,15 +73,18 @@ export default function InitialListRecordedTimes() {
     >
       <Scroll showsVerticalScrollIndicator={false}>
         {
-          dataFormatted.map(({ titleSectionDate, listTrack }, indexData) => (
-            <SectionDate dateLabel={titleSectionDate} key={indexData}>
+          dataFormatted.map(({ titleSectionDate, listTrack }) => (
+            <SectionDate 
+              dateLabel={titleSectionDate} 
+              key={titleSectionDate}
+            >
               {
-                listTrack.map(({ id, day, timer }, indexItem) => (
+                listTrack.map(({ id, day, timer }) => (
                   <ItemDate
                     id={id}
                     day={Number(day)}
                     timer={timer}
-                    key={indexItem}
+                    key={id}
                   />
                 ))
               }

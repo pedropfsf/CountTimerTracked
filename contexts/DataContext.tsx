@@ -69,6 +69,8 @@ export function DataProvider({ children }: DataProviderProps) {
     }
   }, []);
 
+  console.log(listTimerPerMonth);
+
   useEffect(() => {
     getDataStorage();
   }, []);

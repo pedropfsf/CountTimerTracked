@@ -137,8 +137,6 @@ export default function FormCreate() {
   const MONTH_DATE_MASK = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
   const MONTH_TIMER_MASK = [/\d/, /\d/, ":", /\d/, /\d/, ":", /\d/, /\d/];
 
-  console.log(fieldsActive);
-
   return (
     <ContentContainer>
       {
