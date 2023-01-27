@@ -45,7 +45,10 @@ export default function ItemDate({ id, day, timer }: ItemDateProps) {
 
   const handleDelete = useCallback(() => {
     deleteTimerTrack(id);
-  }, [id]);
+  }, [
+    id,
+    deleteTimerTrack,
+  ]);
 
   return (
     <Container>

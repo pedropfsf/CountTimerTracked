@@ -59,9 +59,6 @@ export default function InitialListRecordedTimes() {
     return data;
   }, [listTimerPerMonth]);
 
-  // console.log(dataFormatted.length && dataFormatted[0].listTrack);
-  // console.log(listTimerPerMonth);
-
   return (
     <ContainerScreen 
       style={{ 
@@ -73,10 +70,10 @@ export default function InitialListRecordedTimes() {
     >
       <Scroll showsVerticalScrollIndicator={false}>
         {
-          dataFormatted.map(({ titleSectionDate, listTrack }) => (
+          dataFormatted.map(({ titleSectionDate, listTrack }, index) => (
             <SectionDate 
               dateLabel={titleSectionDate} 
-              key={titleSectionDate}
+              key={index}
             >
               {
                 listTrack.map(({ id, day, timer }) => (

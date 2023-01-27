@@ -132,7 +132,7 @@ export default function FormCreate() {
     });
 
     navigation.navigate("initialHome");
-  }, [fieldData]);
+  }, [fieldData, initialData]);
 
   const MONTH_DATE_MASK = [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
   const MONTH_TIMER_MASK = [/\d/, /\d/, ":", /\d/, /\d/, ":", /\d/, /\d/];
@@ -155,6 +155,8 @@ export default function FormCreate() {
                 if (fieldDateRef.current) {
                   fieldDateRef.current.focus();
                 }
+                setFieldsActive(fieldsActive.filter(field => field === "date"));
+                focusFieldDate.value = colors.white
               }}
             >
               <ContainerFieldAnimation style={stylesFieldDate}>
@@ -208,6 +210,8 @@ export default function FormCreate() {
               if (fieldTimerRef.current) {
                 fieldTimerRef.current.focus();
               }
+              setFieldsActive(fieldsActive.filter(field => field === "timer"));
+              focusFieldTimer.value = colors.white
             }}
           >
             <ContainerFieldAnimation style={stylesFieldTimer}>

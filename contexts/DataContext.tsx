@@ -1,5 +1,12 @@
 // Modules
-import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { 
+  createContext, 
+  useContext, 
+  useState, 
+  useCallback, 
+  useEffect,
+  useMemo
+} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type TimerPerMonth = {
@@ -25,8 +32,12 @@ type DataProviderProps = {
 }
 
 export function DataProvider({ children }: DataProviderProps) {
-  const [listTimerPerMonth, setListTimerPerMonth] = useState([] as TimerPerMonth[]);
+  const [listTimerPerMonth, setListTimerPerMonth] = useState<TimerPerMonth[]>([]);
   
+  const dataJson = useMemo(() => 
+    JSON.stringify(listTimerPerMonth), 
+  [listTimerPerMonth]);
+
   const getTimerTrackById = useCallback((id: string) => {
     return listTimerPerMonth.find(item => item.id === id);
   }, [listTimerPerMonth]);
@@ -35,8 +46,10 @@ export function DataProvider({ children }: DataProviderProps) {
     const newData = [...listTimerPerMonth, value];
 
     setListTimerPerMonth(newData);
-    AsyncStorage.setItem("@data", JSON.stringify(newData));
-  }, [listTimerPerMonth]);
+  }, [
+    listTimerPerMonth,
+    setListTimerPerMonth
+  ]);
 
   const editTimerTrack = useCallback((id: string, value: DataTimerPerMonth) => {
     const newData = listTimerPerMonth.map(oldItem => {
@@ -51,15 +64,28 @@ export function DataProvider({ children }: DataProviderProps) {
     });
 
     setListTimerPerMonth(newData);
-    AsyncStorage.setItem("@data", JSON.stringify(newData));
-  }, [listTimerPerMonth]);
+  }, [
+    listTimerPerMonth,
+    setListTimerPerMonth
+  ]);
   
   const deleteTimerTrack = useCallback((id: string) => {
-    const newData = listTimerPerMonth.filter(item => item.id !== id);
+    const newData = [ ...listTimerPerMonth ];
+    const dataFiltered = [];
 
-    setListTimerPerMonth(newData);
-    AsyncStorage.setItem("@data", JSON.stringify(newData));
-  }, [listTimerPerMonth]);
+    for(const item of newData) {
+      if (item.id !== id) {
+        dataFiltered.push(item);
+      } else {
+        continue
+      }
+    }
+
+    setListTimerPerMonth(dataFiltered);
+  }, [
+    listTimerPerMonth, 
+    setListTimerPerMonth
+  ]);
 
   const getDataStorage = useCallback(async () => {
     const dataJson = await AsyncStorage.getItem("@data");
@@ -67,13 +93,15 @@ export function DataProvider({ children }: DataProviderProps) {
     if (dataJson) {
       setListTimerPerMonth(JSON.parse(dataJson));
     }
-  }, []);
-
-  console.log(listTimerPerMonth);
+  }, [setListTimerPerMonth]);
 
   useEffect(() => {
     getDataStorage();
   }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem("@data", dataJson);
+  }, [listTimerPerMonth.length]);
 
   return (
     <DataContext.Provider value={{
