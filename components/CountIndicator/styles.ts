@@ -57,9 +57,17 @@ export const ExtraTimeIndicator = styled.Text<ExtraTimeIndicatorProps>`
   }};
 `;
 
+export const TotalDaysTracked = styled.Text`
+  text-align: center;
+  
+  font-size: 24px;
+
+  color: ${colors.primary_level_7};
+`;
+
 export const BoxDate = styled.View`
   padding: 24px;
 
   border-bottom-color: ${colors.primary_level_7};
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
 `;

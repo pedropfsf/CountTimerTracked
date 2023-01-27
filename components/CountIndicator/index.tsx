@@ -9,7 +9,8 @@ import {
   ExtraTimeIndicator, 
   TextMain,
   BoxDate,
-  ExtraTimeIndicatorProps
+  ExtraTimeIndicatorProps,
+  TotalDaysTracked
 } from "./styles";
 
 // Types 
@@ -48,13 +49,14 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
 
     const totalTimerCurrent = listTimers.length && listTimers
       .reduce((previousValue, currentValue) => (previousValue ?? 0) + (currentValue ?? 0));
-    const totalCreatePerDay = (listCurrentMonthSet.size * 8) * 3600;
-    const necessaryTimer = totalTimerCurrent - totalCreatePerDay;
+    const totalTimerExtra = (listCurrentMonthSet.size * 8) * 3600;
+    const necessaryTimer = totalTimerCurrent - totalTimerExtra;
 
     return {
       currentDate: moment().format("MM/YYYY"),
       totalCurrent: Timer.convertSecondsInTimer(totalTimerCurrent),
       necessaryTimer,
+      totalDayWithTimerRegistered: listCurrentMonthSet.size,
     }
   }, [list]);
 
@@ -80,6 +82,9 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
         <TextProgressTrack>
           {dataFormatted.currentDate ?? "MM/YYYY"}
         </TextProgressTrack>
+        <TotalDaysTracked>
+          {dataFormatted.totalDayWithTimerRegistered ?? "0"} dias rastreados
+        </TotalDaysTracked>
       </BoxDate>
       <TextMain>{dataFormatted.totalCurrent ?? "00:00:00"}</TextMain>
       <ExtraTimeIndicator colorStatus={colorNecessaryTimer}>
