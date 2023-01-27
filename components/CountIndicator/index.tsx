@@ -1,7 +1,6 @@
 // Modules
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import moment from "moment";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Elements
 import { 
@@ -10,9 +9,9 @@ import {
   ExtraTimeIndicator, 
   TextMain,
   BoxDate,
-  ExtraTimeIndicatorProps
+  ExtraTimeIndicatorProps,
+  TotalDaysTracked
 } from "./styles";
-import { Button } from "react-native";
 
 // Types 
 import { TimerPerMonth } from "../../contexts/DataContext";
@@ -35,7 +34,7 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
 
     const listCurrentMonthSet = new Set();    
     for(const item of listCurrentMonth) {
-      const day = moment(item.date, "DD/MM/YYYY").day();
+      const day = moment(item.date, "DD/MM/YYYY").date();
       listCurrentMonthSet.add(day);
     }
 
@@ -50,13 +49,14 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
 
     const totalTimerCurrent = listTimers.length && listTimers
       .reduce((previousValue, currentValue) => (previousValue ?? 0) + (currentValue ?? 0));
-    const totalCreatePerDay = (listCurrentMonthSet.size * 8) * 3600;
-    const necessaryTimer = totalTimerCurrent - totalCreatePerDay;
+    const totalTimerExtra = (listCurrentMonthSet.size * 8) * 3600;
+    const necessaryTimer = totalTimerCurrent - totalTimerExtra;
 
     return {
       currentDate: moment().format("MM/YYYY"),
       totalCurrent: Timer.convertSecondsInTimer(totalTimerCurrent),
       necessaryTimer,
+      totalDayWithTimerRegistered: listCurrentMonthSet.size,
     }
   }, [list]);
 
@@ -82,15 +82,14 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
         <TextProgressTrack>
           {dataFormatted.currentDate ?? "MM/YYYY"}
         </TextProgressTrack>
+        <TotalDaysTracked>
+          {dataFormatted.totalDayWithTimerRegistered ?? "0"} dias rastreados
+        </TotalDaysTracked>
       </BoxDate>
       <TextMain>{dataFormatted.totalCurrent ?? "00:00:00"}</TextMain>
       <ExtraTimeIndicator colorStatus={colorNecessaryTimer}>
         {Timer.convertSecondsInTimer(dataFormatted.necessaryTimer, colorNecessaryTimer !== "none")}
       </ExtraTimeIndicator>
-      {/* <Button
-        title="Limpar"
-        onPress={() => AsyncStorage.clear()}
-      /> */}
     </Container>
   )
 }
