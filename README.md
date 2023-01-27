@@ -25,32 +25,32 @@ por gosto pessoal mesmo e fiz funcionalidades que permite que eu manipula-se por
 <br/>
 <div align="center">
   <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-1.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-1.png"
        alt="Screenshot 1"
        width="230px"
    />
    <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-2.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-2.png"
        alt="Screenshot 2"
        width="230px"
    />
    <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-3.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-3.png"
        alt="Screenshot 3"
        width="230px"
    />
    <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-4.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-4.png"
        alt="Screenshot 4"
        width="230px"
    />
    <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-5.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-5.png"
        alt="Screenshot 5"
        width="230px"
    />
    <img
-       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-6.jpeg"
+       src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-6.png"
        alt="Screenshot 6"
        width="230px"
    />
