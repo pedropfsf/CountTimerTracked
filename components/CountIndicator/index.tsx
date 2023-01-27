@@ -1,7 +1,6 @@
 // Modules
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import moment from "moment";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Elements
 import { 
@@ -12,7 +11,6 @@ import {
   BoxDate,
   ExtraTimeIndicatorProps
 } from "./styles";
-import { Button } from "react-native";
 
 // Types 
 import { TimerPerMonth } from "../../contexts/DataContext";
@@ -35,7 +33,7 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
 
     const listCurrentMonthSet = new Set();    
     for(const item of listCurrentMonth) {
-      const day = moment(item.date, "DD/MM/YYYY").day();
+      const day = moment(item.date, "DD/MM/YYYY").date();
       listCurrentMonthSet.add(day);
     }
 
@@ -87,10 +85,6 @@ export default function CountIndicator({ list }: CountIndicatorProps) {
       <ExtraTimeIndicator colorStatus={colorNecessaryTimer}>
         {Timer.convertSecondsInTimer(dataFormatted.necessaryTimer, colorNecessaryTimer !== "none")}
       </ExtraTimeIndicator>
-      {/* <Button
-        title="Limpar"
-        onPress={() => AsyncStorage.clear()}
-      /> */}
     </Container>
   )
 }
