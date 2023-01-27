@@ -11,7 +11,7 @@
 <p align="center">Aplicativo para gerenciar tempo rastreado</p>
 
 <h4 align="center">
- 🚧 Desenvolvimento 🚧
+  🚀 Em constante mudanças 🚀
 </h4>
 
 ## Sobre
