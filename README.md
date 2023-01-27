@@ -23,7 +23,7 @@ por gosto pessoal mesmo e fiz funcionalidades que permite que eu manipula-se por
 
 <br/>
 <br/>
-<div align="center">
+<div align="left">
   <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-1.jpeg"
        alt="Screenshot 1"
