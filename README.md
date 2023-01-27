@@ -23,36 +23,36 @@ por gosto pessoal mesmo e fiz funcionalidades que permite que eu manipula-se por
 
 <br/>
 <br/>
-<div align="left">
+<div align="center">
   <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-1.jpeg"
        alt="Screenshot 1"
-       width="200px"
+       width="230px"
    />
    <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-2.jpeg"
        alt="Screenshot 2"
-       width="200px"
+       width="230px"
    />
    <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-3.jpeg"
        alt="Screenshot 3"
-       width="200px"
+       width="230px"
    />
    <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-4.jpeg"
        alt="Screenshot 4"
-       width="200px"
+       width="230px"
    />
    <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-5.jpeg"
        alt="Screenshot 5"
-       width="200px"
+       width="230px"
    />
    <img
        src="https://github.com/pedropfsf/CountTimerTracked/blob/develop/presentation/screenshot-6.jpeg"
        alt="Screenshot 6"
-       width="200px"
+       width="230px"
    />
 </div>
 
