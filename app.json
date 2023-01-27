@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#090C1E"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,14 +20,20 @@
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+    "extra": {
+      "eas": {
+        "projectId": "ba261ed7-8f9c-409b-bc2f-d8c183a2c4d7"
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "com.astronauto.countTimerTracked",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#090C1E"
+      }
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content"
     }
   }
 }
